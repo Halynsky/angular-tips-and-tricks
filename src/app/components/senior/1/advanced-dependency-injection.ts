@@ -1,28 +1,41 @@
-import { Component, Input } from '@angular/core';
+import { Component, Host, Input, Self, SkipSelf } from '@angular/core';
 
-@Component({
-  selector: 'inner-di',
-  template:
-  '<div class="hero">' +
-    '<span>{{hero.name}}</span>' +
-    '<button>Add copy</button>' +
-  '</div>',
-  styles: ['.hero{background-color:deepskyblue; padding: 20px; border-bottom: 2px solid darkgrey}' +
-            'span {margin-right: 16px}']
-})
-export class InnerComponent {
-  @Input() public hero;
-
+export class Hero {
+  public name: string;
+  public type: string;
+  constructor(name: string, type: string) {
+    this.name = name;
+    this.type = type;
+  }
 }
-
 
 @Component({
   selector: 'advanced-di',
-  template: '<ng-template ngFor [ngForOf]="heroes" let-hero="">' +
-              '<inner-di [hero]="hero"></inner-di>' +
-            '</ng-template>',
-  styles: ['.heroes-wrapper {display: block; margin-top: 16px; width: 200px;} ']
+  template: `<inner-di></inner-di>`,
+  providers: [{provide: Hero, useValue: new Hero('Parent Hero', 'LEGENDARY')}]
 })
-export class AdvancedDependencyInjection {
-  heroes = [{id: 0, name: "Hero-0"}, {id: 1, name: "Hero-1"}, {id: 2, name: "Hero-2"}];
+export class AdvancedDependencyInjection {}
+
+@Component({
+  selector: 'inner-di',
+  template: `<div class="hero"><span>{{hero.name}} | {{hero.type}}</span></div>`,
+  styles: [`.hero{background-color:deepskyblue; width: 200px;
+            padding: 20px; border-bottom: 2px solid darkgrey}
+            span {margin-right: 16px}`],
+  providers: [{provide: Hero, useValue: new Hero('Child Hero', 'NEWBIE')}]
+})
+export class InnerComponent {
+
+  constructor(
+    public hero: Hero,
+    @Host() public hero1: Hero,
+    @Self() public hero2: Hero,
+    @SkipSelf() public hero3: Hero,
+  ) {
+    console.log(hero);
+    console.log(hero1);
+    console.log(hero2);
+    console.log(hero3);
+  }
+
 }

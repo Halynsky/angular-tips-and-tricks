@@ -1,48 +1,49 @@
-import { Component, Host, Input } from '@angular/core';
+import { Component, Host, Input, OnInit, Optional } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
 @Component({
-  selector: 'hero-di',
-  template:
-  '<div class="hero">' +
-    '<span>{{hero.name}}</span>' +
-    '<button>Add copy</button>' +
-  '</div>',
+  selector: 'top-parent-comp',
+  template: `<heroes-list>
+               <hero-item [heroName]="'Superman'"></hero-item>
+               <hero-item [heroName]="'Batman'"></hero-item>
+             </heroes-list>`,
+})
+export class TopParentComp {}
+
+@Component({
+  selector: 'heroes-list',
+  template: `<div>Heroes<div>
+             <ng-content></ng-content>`,
+})
+export class HeroesListComp {
+  id = 0;
+  heroes = [];
+  addHero(heroName) {
+    console.log('Registering new hero => ' + heroName);
+    this.heroes.push({id: this.id++, name: heroName});
+    console.log('heroes =>' + JSON.stringify(this.heroes))
+  }
+
+}
+
+@Component({
+  selector: 'hero-item',
+  template: `<div class="hero">
+              <span>{{heroName}}</span>
+            </div>`,
   styles: ['.hero{background-color:deepskyblue; padding: 20px; ' +
            'border-bottom: 2px solid darkgrey; width: 200px;}' +
            'span {margin-right: 16px}']
 })
-export class HeroDIComp {
-  @Input() public hero;
+export class HeroDIComp implements OnInit{
+  @Input() public heroName;
 
-  constructor(@Host() private uiParentComp: UiParentComp){
+  constructor(@Host() public heroesListComp: HeroesListComp){}
 
-  }
-
-  addCopy(){
-    this.uiParentComp.addHero('hi');
-  }
-
-}
-
-@Component({
-  selector: 'advanced-di',
-  template: '<ng-template ngFor [ngForOf]="heroes" let-hero="">' +
-              '<hero-di [hero]="hero"></hero-di>' +
-            '</ng-template>',
-  styles: ['']
-})
-export class UiParentComp {
-  heroes = [{id: 0, name: "Hero-0"}, {id: 1, name: "Hero-1"}, {id: 2, name: "Hero-2"}];
-  addHero(hero) {
-    console.log('ADD HERO')
-    // this.heroes.push(hero)
+  ngOnInit(): void {
+    this.heroesListComp.addHero(this.heroName);
   }
 
 }
 
-@Component({
-  selector: 'other-comp',
-})
-export class OtherParentComp {}
 
