@@ -1,17 +1,27 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 @Component({
   selector: 'x-hero-card',
   template: '<div class="hero">' +
-               '{{heroName}}' +
+               '{{hero.name}}' +
              '</div>',
   styles: ['.hero{display: block; background-color:deepskyblue; padding: 20px; border-bottom: 2px solid grey} '],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class XHeroCardComponent {
-  @Input() heroName;
+export class XHeroCardComponent implements OnInit {
+  @Input() public hero$: Observable<any>;
+  public hero;
 
   constructor(private changeDetectorRef: ChangeDetectorRef) {}
+
+  ngOnInit(): void {
+    this.hero$.subscribe((value) => {
+      this.hero = value;
+      this.changeDetectorRef.markForCheck();
+    });
+  }
 
 }
 
@@ -19,21 +29,19 @@ export class XHeroCardComponent {
   selector: 'change-detection-comp',
   template: '<div class="heroes-wrapper">' +
               '<button (click)="update()">Update</button>' +
-              '<ng-template ngFor [ngForOf]="heroes" let-hero="" let-i="index" >' +
-                '<x-hero-card [heroName]="hero.name">' +
+                '<x-hero-card [hero$]="hero$">' +
                 '</x-hero-card>' +
-              '</ng-template>' +
             '</div>',
   styles: ['.heroes-wrapper {display: block; margin-top: 16px; width: 250px;} button {margin: 8px}'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ChangeDetectionComponent {
-  heroes = [{id: 0, name: "Hero-0"}, {id: 1, name: "Hero-1"}, {id: 2, name: "Hero-2"}];
+  hero$ = new BehaviorSubject({id: 0, name: "Hero-0"});
 
   update() {
-    this.heroes[0].name = "Hero-Y" ;
-    this.heroes.push({id: 3, name: "Hero-3"});
-    // this.heroes.slice(0);
+    this.hero$.value.name = "Hero-Y";
+    this.hero$.next(this.hero$.getValue())
+
   }
 
 }

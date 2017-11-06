@@ -7,6 +7,14 @@ import { NativeElementComponent, RobotCardComponent } from './1/native-element.c
 import { ContentChildComponent, HelloCardComponent } from './2/content-children.component';
 import { SelfDestroyWithForComponent } from './4/self-destroy-with-for';
 import { ChangeDetectionComponent, XHeroCardComponent } from './5/change-detection';
+import { AuthService } from './auth.service';
+import {
+  CanActivateAdminGuard,
+  CanActivateAuthGuard, GuardsAdminExampleComponent, GuardsExampleComponent,
+  GuardsUserExampleComponent
+} from './6/guards-example.component';
+import { HoverBlockComponent, RunOutsideAngularExample } from './7/run-outside-angular-example';
+import { ForkJoinExample } from './8/fork-join-example';
 
 @NgModule({
   imports: [
@@ -19,8 +27,16 @@ import { ChangeDetectionComponent, XHeroCardComponent } from './5/change-detecti
     ContentChildComponent, HelloCardComponent,
     HostListenerComponent, MagicDirective,
     SelfDestroyWithForComponent,
-    ChangeDetectionComponent, XHeroCardComponent
+    ChangeDetectionComponent, XHeroCardComponent,
+    GuardsExampleComponent, GuardsUserExampleComponent, GuardsAdminExampleComponent,
+    RunOutsideAngularExample, HoverBlockComponent,
+    ForkJoinExample
     ],
+  providers: [
+    AuthService,
+    CanActivateAuthGuard,
+    CanActivateAdminGuard
+  ],
   exports: [
     MagicDirective
   ]

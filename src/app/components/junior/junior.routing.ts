@@ -8,6 +8,8 @@ import { IteratorsAndCSComponent } from './6/iterators-and-cs';
 import { NgForOfComponent } from './6/ng-for-of';
 import { NgSwitchComponent } from './6/ng-switch';
 import { NgIfElseComponent } from './6/ng-if-else';
+import { ProgrammaticPipeComponent } from './7/programmatic-pipe.component';
+import { InputChangesComponent } from './8/input-changes.component';
 
 const juniorRoutes: Routes = [
   {path: '1', component: TagVsAttributeComponent},
@@ -19,7 +21,9 @@ const juniorRoutes: Routes = [
   {path: '6', component: IteratorsAndCSComponent},
   {path: '6/ngForOf', component: NgForOfComponent},
   {path: '6/ngSwitch', component: NgSwitchComponent},
-  {path: '6/ngIfElse', component: NgIfElseComponent}
+  {path: '6/ngIfElse', component: NgIfElseComponent},
+  {path: '7', component: ProgrammaticPipeComponent},
+  {path: '8', component: InputChangesComponent}
 
 ];
 

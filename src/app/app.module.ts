@@ -6,6 +6,7 @@ import { JuniorModule } from './components/junior/junior.module';
 import { routing } from './app.routing';
 import { MenuComponent } from './components/menu/menu.component';
 import { MiddleModule } from './components/middle/middle.module';
+import { SeniorModule } from './components/senior/senior.module';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { MiddleModule } from './components/middle/middle.module';
     routing,
     BrowserModule,
     JuniorModule,
-    MiddleModule
+    MiddleModule,
+    SeniorModule
   ],
   providers: [],
   bootstrap: [AppComponent]

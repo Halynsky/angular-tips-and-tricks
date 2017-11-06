@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { juniorRouting } from './junior.routing';
 import { MagicTagAttrComp, TagVsAttributeComponent } from './1/tag-vs-attribute.component';
 import { ElementReferenceComponent } from './2/element-reference.component';
@@ -10,6 +10,8 @@ import { IteratorsAndCSComponent } from './6/iterators-and-cs';
 import { NgForOfComponent } from './6/ng-for-of';
 import { NgSwitchComponent } from './6/ng-switch';
 import { NgIfElseComponent } from './6/ng-if-else';
+import { ProgrammaticPipeComponent } from './7/programmatic-pipe.component';
+import { HeroCardComponent, InputChangesComponent } from './8/input-changes.component';
 
 @NgModule({
   imports: [
@@ -24,8 +26,13 @@ import { NgIfElseComponent } from './6/ng-if-else';
     ObserversLengthComponent, MagicCardComponent,
     IteratorsAndCSComponent, NgForOfComponent,
     NgSwitchComponent,
-    NgIfElseComponent
-    ]
+    NgIfElseComponent,
+    ProgrammaticPipeComponent,
+    InputChangesComponent, HeroCardComponent
+    ],
+  providers: [
+    DatePipe
+  ]
 })
 export class JuniorModule {
 }

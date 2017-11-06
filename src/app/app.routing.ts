@@ -8,6 +8,7 @@ const routes: Routes = [
   { path: '', component: MenuComponent},
   { path: 'junior', loadChildren: './components/junior/junior.module#JuniorModule'},
   { path: 'middle', loadChildren: './components/middle/middle.module#MiddleModule'},
+  { path: 'senior', loadChildren: './components/senior/senior.module#SeniorModule'},
 
 ];
 
