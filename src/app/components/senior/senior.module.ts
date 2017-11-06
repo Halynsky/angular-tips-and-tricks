@@ -5,12 +5,11 @@ import { FormsModule } from '@angular/forms';
 import { AdvancedDependencyInjection, InnerComponent } from './1/advanced-dependency-injection';
 import { TopParentComp, HeroDIComp, HeroesListComp,  } from './1/ui-parent-comp';
 import { DynamicComponentTemplate, HeroDynamicComponent, HumanDynamicComponent } from './2/dynamic-component-template';
-import { DynamicHero, TopLevelComp } from './3/dynamic-component-dom';
-import { DynamicComponentService } from './3/dynamic-component-service';
-import { AdvancedTemplateExample, MagicTable } from './4/advanced-template';
-
-// import { AlexComponent, CathyComponent } from './1/ui-parent-comp';
-
+import { DynamicHero, TopLevelComp } from './2/dynamic-component-dom';
+import { DynamicComponentService } from './2/dynamic-component-service';
+import { AdvancedTemplateExample, MagicTable } from './3/advanced-template';
+import { SingleSlotCard, SingleSlotTransclusion } from './4/single-slot-transclusion';
+import { AdvCard, MultiSlotTransclusion } from './4/multi-slot-transclusion';
 
 @NgModule({
   imports: [
@@ -23,7 +22,9 @@ import { AdvancedTemplateExample, MagicTable } from './4/advanced-template';
     TopParentComp, HeroesListComp, HeroDIComp,
     DynamicComponentTemplate, HeroDynamicComponent, HumanDynamicComponent,
     TopLevelComp, DynamicHero,
-    AdvancedTemplateExample, MagicTable
+    AdvancedTemplateExample, MagicTable,
+    SingleSlotTransclusion, SingleSlotCard,
+    MultiSlotTransclusion, AdvCard
   ],
   providers: [
     DynamicComponentService
