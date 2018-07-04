@@ -7,6 +7,8 @@ import { routing } from './app.routing';
 import { MenuComponent } from './components/menu/menu.component';
 import { MiddleModule } from './components/middle/middle.module';
 import { SeniorModule } from './components/senior/senior.module';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './components/shared/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,11 @@ import { SeniorModule } from './components/senior/senior.module';
     MiddleModule,
     SeniorModule
   ],
-  providers: [],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthInterceptor,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
